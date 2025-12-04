@@ -241,18 +241,21 @@ void GameServer::WorkerThread() {
         int clientId = static_cast<int>(key);
         Exp_Over* expOver = reinterpret_cast<Exp_Over*>(overlapped);
 
-        if (!ret || numBytes == 0) {
-            if (expOver->_comp_op != COMP_OP::OP_ACCEPT && expOver->_comp_op != COMP_OP::OP_SEND) {
-                DisconnectClient(clientId);
-            }
-            if (expOver->_comp_op == COMP_OP::OP_SEND) {
-                delete expOver;
-            }
-            continue;
-        }
+        
 
         switch (expOver->_comp_op) {
         case COMP_OP::OP_RECV:
+
+            if (!ret || numBytes == 0) {
+                if (expOver->_comp_op != COMP_OP::OP_ACCEPT && expOver->_comp_op != COMP_OP::OP_SEND) {
+                    DisconnectClient(clientId);
+                }
+                if (expOver->_comp_op == COMP_OP::OP_SEND) {
+                    delete expOver;
+                }
+                continue;
+            }
+
             HandleRecv(clientId, expOver, numBytes);
             break;
         case COMP_OP::OP_SEND:

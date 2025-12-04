@@ -155,7 +155,7 @@
     <Image Include="chessmap.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\iocp_single\iocp_single\protocol.h" />
+    <ClInclude Include="..\..\iocp_single\iocp_single\Protocol.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />

@@ -18,17 +18,17 @@ public:
     void Run();
     void Shutdown();
 
-    // Client 관리
+    // Client Management
     int GetNewClientId();
     void DisconnectClient(int clientId);
     bool IsNear(int id1, int id2) const;
     bool IsNPC(int id) const;
     bool IsPlayer(int id) const;
 
-    // 게임 로직
+    // Game Logic
     void PlayerHeal(int clientId);
 
-    // Getter - cpp에서 구현
+    // Getters - implemented in cpp
     std::array<Client, GameConfig::MAX_USER + GameConfig::MAX_NPC>& GetClients();
     HANDLE GetIOCP() const;
     MAP (&GetGameMap())[GameConfig::WORLD_HEIGHT][GameConfig::WORLD_WIDTH];
@@ -44,22 +44,22 @@ private:
     void HandleRevive(int clientId, Exp_Over* expOver);
     void HandleHeal(int clientId, Exp_Over* expOver);
 
-    // 네트워크
+    // Network
     SOCKET m_listenSocket;
     HANDLE m_hIOCP;
 
-    // 게임 데이터
+    // Game Data
     std::array<Client, GameConfig::MAX_USER + GameConfig::MAX_NPC> m_clients;
     MAP m_gameMap[GameConfig::WORLD_HEIGHT][GameConfig::WORLD_WIDTH];
     std::atomic<int> m_acceptedPlayerCount;
 
-    // 매니저들
+    // Managers
     std::unique_ptr<Sender> m_sender;
     std::unique_ptr<PacketHandler> m_packetHandler;
     std::unique_ptr<NPCManager> m_npcManager;
     std::unique_ptr<TimerManager> m_timerManager;
 
-    // 워커 스레드
+    // Worker Threads
     std::vector<std::unique_ptr<std::thread>> m_workerThreads;
     std::atomic<bool> m_running;
 };

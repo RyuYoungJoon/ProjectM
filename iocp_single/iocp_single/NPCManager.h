@@ -25,7 +25,7 @@ public:
     bool IsNPC(int id) const;
     bool IsPlayer(int id) const;
 
-    // Lua API 함수들
+    // Lua API Functions
     static int API_SendMessage(lua_State* L);
     static int API_get_x(lua_State* L);
     static int API_get_y(lua_State* L);
@@ -39,6 +39,6 @@ private:
     TimerManager& m_timerManager;
     MAP (&m_gameMap)[GameConfig::WORLD_HEIGHT][GameConfig::WORLD_WIDTH];
 
-    // Lua API에서 접근하기 위한 static 포인터
+    // Static pointer for Lua API access
     static NPCManager* s_instance;
 };

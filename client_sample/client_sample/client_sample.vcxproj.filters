@@ -298,9 +298,6 @@
     <ClInclude Include="include\SFML\Window\WindowStyle.hpp">
       <Filter>SFML\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\iocp_single\iocp_single\protocol.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Config.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -317,6 +314,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="RenderManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\iocp_single\iocp_single\Protocol.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

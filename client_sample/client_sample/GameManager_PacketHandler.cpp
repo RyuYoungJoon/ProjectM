@@ -61,7 +61,7 @@ void GameManager::ProcessPacket(char* ptr)
         else
         {
             // Create NPC or other player
-            if (id < NPC_ID_START)
+            if (id < GameConfig::NPC_ID_START)
             {
                 // Other player
                 m_npcs[id] = GameObject(m_renderManager.GetPlayerTexture(), 0, 0, SPRITE_SIZE, SPRITE_SIZE);
@@ -71,13 +71,13 @@ void GameManager::ProcessPacket(char* ptr)
             {
                 // NPC - Different sprite based on type
                 int spriteY = 0;
-                if (packet->npcCharacterType == NPC_STAY && packet->npcMoveType == NPC_HOLD)
+                if (packet->npcCharacterType == GameConfig::NPC_STAY && packet->npcMoveType == GameConfig::NPC_HOLD)
                     spriteY = 0;
-                else if (packet->npcCharacterType == NPC_STAY && packet->npcMoveType == NPC_RANDOM_MOVE)
+                else if (packet->npcCharacterType == GameConfig::NPC_STAY && packet->npcMoveType == GameConfig::NPC_RANDOM_MOVE)
                     spriteY = 1;
-                else if (packet->npcCharacterType == NPC_FIGHT && packet->npcMoveType == NPC_HOLD)
+                else if (packet->npcCharacterType == GameConfig::NPC_FIGHT && packet->npcMoveType == GameConfig::NPC_HOLD)
                     spriteY = 2;
-                else if (packet->npcCharacterType == NPC_FIGHT && packet->npcMoveType == NPC_RANDOM_MOVE)
+                else if (packet->npcCharacterType == GameConfig::NPC_FIGHT && packet->npcMoveType == GameConfig::NPC_RANDOM_MOVE)
                     spriteY = 3;
                 else
                     spriteY = 4;
@@ -189,7 +189,7 @@ void GameManager::ProcessPacket(char* ptr)
         {
             if (m_npcs.count(id) != 0)
             {
-                if (id < NPC_ID_START && m_npcs[id].hp > packet->hp)
+                if (id < GameConfig::NPC_ID_START && m_npcs[id].hp > packet->hp)
                 {
                     m_npcs[id].damageFlag = true;
                 }

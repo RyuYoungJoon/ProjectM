@@ -51,7 +51,7 @@ bool GameManager::Initialize()
     std::cout << "Expected pacman: 310x155 (31x31 sprites, 10 frames, 5 types)" << std::endl;
     
     // Connect to server
-    if (!m_networkManager.Connect("127.0.0.1", SERVER_PORT))
+    if (!m_networkManager.Connect("127.0.0.1", GameConfig::SERVER_PORT))
     {
         std::wcout << L"Server connection failed!" << std::endl;
         return false;
@@ -159,22 +159,22 @@ void GameManager::ProcessInput()
             switch (event.key.code)
             {
             case sf::Keyboard::Left:
-                m_networkManager.SendMovePacket(D_LEFT);
+                m_networkManager.SendMovePacket(GameConfig::D_LEFT);
                 m_player.direction = 2;
                 break;
                 
             case sf::Keyboard::Right:
-                m_networkManager.SendMovePacket(D_RIGHT);
+                m_networkManager.SendMovePacket(GameConfig::D_RIGHT);
                 m_player.direction = 3;
                 break;
                 
             case sf::Keyboard::Up:
-                m_networkManager.SendMovePacket(D_UP);
+                m_networkManager.SendMovePacket(GameConfig::D_UP);
                 m_player.direction = 0;
                 break;
                 
             case sf::Keyboard::Down:
-                m_networkManager.SendMovePacket(D_DOWN);
+                m_networkManager.SendMovePacket(GameConfig::D_DOWN);
                 m_player.direction = 1;
                 break;
                 

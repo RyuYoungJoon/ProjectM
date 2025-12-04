@@ -26,7 +26,7 @@ private:
     void HandleTeleport(int clientId, char* packet);
     void HandleLogout(int clientId, char* packet);
 
-    // 게임 로직 헬퍼
+    // Game Logic Helpers
     void DoMove(int clientId, char direction, int moveTime);
     void AccessGame(int userId, const char* name);
     bool IsAttackable(int attackerId, int targetId) const;

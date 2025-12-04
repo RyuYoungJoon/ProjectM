@@ -16,7 +16,7 @@ struct MAP
     GRID_TYPE type;
 };
 
-// 패킷 타입 정의
+// Packet type definitions
 const char CS_PACKET_LOGIN = 1;
 const char CS_PACKET_MOVE = 2;
 const char CS_PACKET_ATTACK = 3;

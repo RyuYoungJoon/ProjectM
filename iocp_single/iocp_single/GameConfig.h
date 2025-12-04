@@ -1,26 +1,26 @@
 #pragma once
 
 namespace GameConfig {
-    // 서버 설정
+    // Server Settings
     constexpr short SERVER_PORT = 4000;
     constexpr int WORKER_THREAD_COUNT = 6;
 
-    // 월드 설정
+    // World Settings
     constexpr int WORLD_HEIGHT = 800;
     constexpr int WORLD_WIDTH = 800;
     constexpr int VIEW_RANGE = 9;
 
-    // 플레이어 설정
+    // Player Settings
     constexpr int MAX_USER = 10000;
     constexpr int MAX_NAME_SIZE = 20;
     constexpr int MAX_CHAT_SIZE = 100;
 
-    // NPC 설정
+    // NPC Settings
     constexpr int MAX_NPC = 10000;
     constexpr int NPC_ID_START = MAX_USER;
     constexpr int NPC_ID_END = MAX_USER + MAX_NPC - 1;
 
-    // 전투 설정
+    // Combat Settings
     namespace Combat {
         constexpr short BASE_HP = 100;
         constexpr short HP_PER_LEVEL = 20;
@@ -30,7 +30,7 @@ namespace GameConfig {
         constexpr int ATTACK_COOLDOWN_SEC = 1;
     }
 
-    // 경험치 설정
+    // Experience Settings
     namespace Experience {
         constexpr int BASE_EXP = 100;
         inline int GetRequiredExp(int level) {
@@ -38,18 +38,18 @@ namespace GameConfig {
         }
     }
 
-    // 패킷 설정
+    // Packet Settings
     constexpr int MAX_PACKET_SIZE = 255;
     constexpr int MAX_BUF_SIZE = 1024;
     constexpr int BUFSIZE = 256;
 
-    // 방향
+    // Directions
     constexpr unsigned char D_UP = 0;
     constexpr unsigned char D_DOWN = 1;
     constexpr unsigned char D_LEFT = 2;
     constexpr unsigned char D_RIGHT = 3;
 
-    // NPC 타입
+    // NPC Types
     constexpr char NPC_STAY = 0;
     constexpr char NPC_FIGHT = 1;
     constexpr char NPC_SPECIAL = 2;

@@ -44,11 +44,11 @@ void MapManager::LoadMapData(const char* filename)
         switch (data)
         {
         case '0':
-            m_map[count / WORLD_WIDTH][count % WORLD_WIDTH] = eBLANK;
+            m_map[count / GameConfig::WORLD_WIDTH][count % GameConfig::WORLD_WIDTH] = eBLANK;
             count++;
             break;
         case '3':
-            m_map[count / WORLD_WIDTH][count % WORLD_WIDTH] = eBLOCKED;
+            m_map[count / GameConfig::WORLD_WIDTH][count % GameConfig::WORLD_WIDTH] = eBLOCKED;
             count++;
             break;
         default:
@@ -70,7 +70,7 @@ void MapManager::Render(sf::RenderWindow* window, int leftX, int topY)
             int tileY = j + topY;
             
             // Map range check
-            if (tileX < 0 || tileY < 0 || tileX >= WORLD_WIDTH || tileY >= WORLD_HEIGHT)
+            if (tileX < 0 || tileY < 0 || tileX >= GameConfig::WORLD_WIDTH || tileY >= GameConfig::WORLD_HEIGHT)
                 continue;
             
             float posX = static_cast<float>(TILE_SIZE * i);
@@ -92,7 +92,7 @@ void MapManager::Render(sf::RenderWindow* window, int leftX, int topY)
 
 char MapManager::GetTile(int x, int y) const
 {
-    if (x < 0 || y < 0 || x >= WORLD_WIDTH || y >= WORLD_HEIGHT)
+    if (x < 0 || y < 0 || x >= GameConfig::WORLD_WIDTH || y >= GameConfig::WORLD_HEIGHT)
         return eBLOCKED;
     
     return m_map[y][x];

@@ -4,7 +4,7 @@
 #ifndef PCH_H
 #define PCH_H
 
-// 표준 라이브러리
+// Standard Library
 #include <iostream>
 #include <WS2tcpip.h>
 #include <MSWSock.h>
@@ -31,26 +31,26 @@ extern "C" {
 using namespace std;
 using namespace chrono;
 
-// 링크 라이브러리
+// Link Libraries
 #pragma comment (lib, "WS2_32.LIB")
 #pragma comment (lib, "MSWSock.LIB")
 #pragma comment(lib,"odbc32.lib")
 
-// 레거시 정의
+// Legacy Definitions
 #define NAME_LEN 50  
 #define PHONE_LEN 60
 
-// 프로젝트 헤더 (의존성 순서대로)
+// Project Headers (in dependency order)
 #include "GameConfig.h"
 #include "Protocol.h"
-#include "enum.h"          // Client.h보다 먼저!
+#include "enum.h"          // Before Client.h
 #include "event.h"
 #include "error.h"
-#include "Client.h"        // enum.h 이후
+#include "Client.h"        // After enum.h
 #include "Sender.h"
 #include "DB.h"
 
-// Manager 헤더들은 forward declaration만 (순환 의존성 방지)
-// 실제 include는 각 cpp 파일에서!
+// Manager headers: forward declaration only (to prevent circular dependencies)
+// Actual includes should be in each cpp file
 
 #endif

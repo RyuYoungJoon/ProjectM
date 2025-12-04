@@ -1,5 +1,4 @@
 #pragma once
-#define SFML_STATIC
 #include <SFML/Graphics.hpp>
 
 // Screen Settings

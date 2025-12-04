@@ -59,7 +59,7 @@ void NPCManager::InitializeNPCs() {
         m_clients[i]._state = STATUS::ST_INGAME;
         m_clients[i]._type = 2;
 
-        // 빈 공간 찾기
+        // Find empty space
         while (true) {
             int x = rand() % WORLD_WIDTH;
             int y = rand() % WORLD_HEIGHT;
@@ -71,7 +71,7 @@ void NPCManager::InitializeNPCs() {
             }
         }
 
-        // Lua 초기화
+        // Lua initialization
         lua_State* L = m_clients[i].L = luaL_newstate();
         luaL_openlibs(L);
         int error = luaL_loadfile(L, "monster.lua") || lua_pcall(L, 0, 0, 0);
@@ -80,13 +80,13 @@ void NPCManager::InitializeNPCs() {
         lua_pushnumber(L, i);
         lua_pcall(L, 1, 1, 0);
 
-        // Lua API 등록
+        // Register Lua API
         lua_register(L, "API_SendMessage", API_SendMessage);
         lua_register(L, "API_get_x", API_get_x);
         lua_register(L, "API_get_y", API_get_y);
         lua_register(L, "API_npc_attack", API_npc_attack);
 
-        // NPC 스탯 초기화
+        // Initialize NPC stats
         m_clients[i].level = rand() % 5 + 1;
         m_clients[i].npcCharacterType = rand() % 3;
         m_clients[i].hp = m_clients[i].level * 5;
@@ -102,10 +102,8 @@ void NPCManager::InitializeNPCs() {
         m_clients[i].overlap = false;
         m_clients[i].move_count = 0;
 
-        if (m_clients[i].npcMoveType == GameConfig::NPC_RANDOM_MOVE) {
-            m_timerManager.AddTimer(i, EVENT_NPC_MOVE, 
-                std::chrono::system_clock::now() + std::chrono::seconds(1));
-        }
+        // NPCs start inactive and are woken up only when players are nearby
+        // This prevents timer flood on server startup
     }
 
     std::cout << "Initialize NPC Complete" << std::endl;
@@ -118,7 +116,7 @@ void NPCManager::MoveNPC(int npcId) {
     std::unordered_set<int> oldViewlist = npc.viewlist;
     std::unordered_set<int> newViewlist;
 
-    // 근처 플레이어 찾기
+    // Find nearby players
     for (auto& obj : m_clients) {
         if (obj._state != STATUS::ST_INGAME) continue;
         if (!IsPlayer(obj._id)) continue;
@@ -127,7 +125,7 @@ void NPCManager::MoveNPC(int npcId) {
         }
     }
 
-    // NPC 이동
+    // Move NPC
     int x = npc.x;
     int y = npc.y;
 
@@ -161,7 +159,7 @@ void NPCManager::MoveNPC(int npcId) {
     npc.x = x;
     npc.y = y;
 
-    // 새로운 뷰리스트 구성
+    // Build new viewlist
     for (auto& obj : m_clients) {
         if (obj._state != STATUS::ST_INGAME) continue;
         if (!IsPlayer(obj._id)) continue;
@@ -170,7 +168,7 @@ void NPCManager::MoveNPC(int npcId) {
         }
     }
 
-    // 새로 시야에 들어온 플레이어 처리
+    // Handle newly visible players
     for (auto pl : newViewlist) {
         if (oldViewlist.count(pl) == 0) {
             std::lock_guard<std::mutex> lock(m_clients[pl].vl);
@@ -187,7 +185,7 @@ void NPCManager::MoveNPC(int npcId) {
         }
     }
 
-    // 시야에서 벗어난 플레이어 처리
+    // Handle players out of view
     for (auto pl : oldViewlist) {
         if (newViewlist.count(pl) == 0) {
             std::lock_guard<std::mutex> lock(m_clients[pl].vl);
@@ -196,7 +194,7 @@ void NPCManager::MoveNPC(int npcId) {
         }
     }
 
-    // 활성화 상태 관리
+    // Manage active state
     if (newViewlist.empty()) {
         CAS(&npc._is_active, true, false);
     } else {
@@ -233,7 +231,7 @@ void NPCManager::UpdateNPCInfo(int npcId, int playerId) {
     }
 }
 
-// Lua API 구현
+// Lua API implementation
 int NPCManager::API_SendMessage(lua_State* L) {
     int myId = (int)lua_tointeger(L, -3);
     int userId = (int)lua_tointeger(L, -2);

@@ -130,7 +130,7 @@ void GameObject::Draw(sf::RenderWindow* window, int leftX, int topY, bool isPlay
     float ry = (m_y - topY) * static_cast<float>(TILE_SIZE) + 8.0f;
     
     // Character body rendering
-    if (isPlayer || m_id < NPC_ID_START)
+    if (isPlayer || m_id < GameConfig::NPC_ID_START)
     {
         int frameX = motionIndex * SPRITE_SIZE;
         int frameY = direction * SPRITE_SIZE;
@@ -197,7 +197,7 @@ void GameObject::Draw(sf::RenderWindow* window, int leftX, int topY, bool isPlay
     window->draw(m_levelText);
     
     // HP bar display (for other characters)
-    if ((m_id >= NPC_ID_START || m_id < NPC_ID_START) && m_id != myId)
+    if ((m_id >= GameConfig::NPC_ID_START || m_id < GameConfig::NPC_ID_START) && m_id != myId)
     {
         sf::RectangleShape hpBox;
         hpBox.setPosition(sf::Vector2f(rx, ry - 35));

@@ -27,9 +27,9 @@ int main()
     std::cout << "======================================" << std::endl;
     std::cout << std::endl;
     
-    GameManager game;
+    auto game = std::make_unique<GameManager>();
     
-    if (!game.Initialize())
+    if (!game->Initialize())
     {
         std::cerr << "Game initialization failed!" << std::endl;
         system("pause");
@@ -45,7 +45,7 @@ int main()
     std::cout << "  ESC        - Exit" << std::endl;
     std::cout << std::endl;
     
-    game.Run();
+    game->Run();
     
     std::cout << "Game ended. Thank you for playing!" << std::endl;
     return 0;
